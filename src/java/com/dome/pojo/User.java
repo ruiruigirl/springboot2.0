@@ -1,5 +1,9 @@
 package com.dome.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,6 +14,8 @@ import org.apache.ibatis.annotations.Mapper;
  **/
 
 @Mapper
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     private Long id;
@@ -39,7 +45,4 @@ public class User {
     public void setAge(Integer age) {
         this.age = age;
     }
-
-    // 省略setter和getter
-
 }

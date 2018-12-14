@@ -1,6 +1,7 @@
 package com.dome.controller;
 
 import com.dome.pojo.User;
+import com.dome.unti.SystemLog;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -20,6 +21,7 @@ public class UserController {
     // 创建线程安全的Map
     static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
 
+    @SystemLog
     @RequestMapping(value="/", method=RequestMethod.GET)
     public List<User> getUserList() {
         // 处理"/users/"的GET请求，用来获取用户列表
@@ -28,6 +30,7 @@ public class UserController {
         return r;
     }
 
+    @SystemLog()
     @RequestMapping(value="/", method=RequestMethod.POST)
     public String postUser(@ModelAttribute User user) {
         // 处理"/users/"的POST请求，用来创建User
