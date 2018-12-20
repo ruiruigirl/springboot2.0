@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+	<head>
+		<title>Home</title>
+		<!-- Meta tag Keywords -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8" />
+		<meta name="keywords" content="" />
+		<script>
+			// 当用户进入页面时 执行函数 hideURLbar
+			//setTimeout() 方法用于在指定的毫秒数后调用函数或计算表达式。
+			//语法
+			//setTimeout(code,millisec)
+			//参数	描述
+			//code	必需。要调用的函数后要执行的 JavaScript 代码串。
+			// 方法意义 当加载进此页时 将页面调整到 起点位置
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+		<!-- Meta tag Keywords -->
+		<!-- css files -->
+		<link rel="stylesheet" href="css/jquery.countdown.css" />
+		<!-- Countdown-CSS -->
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+		<!-- Style-CSS -->
+		<!-- //css files -->
+		<!-- web-fonts -->
+
+		<!-- //web-fonts -->
+	</head>
+
+	<body>
+
+		<div class="head">
+			<!--header-->
+			<h1></h1>
+			<!--//header-->
+			<div class="main">
+				<!-- content -->
+				<div class="main-content-agile">
+					<div class="w3l-agile">
+						<h2 style="font-family: '华文行楷';">距离活动截止时间</h2>
+						<h3>倒计时 </h3>
+					</div>
+					<!--timer-->
+					<div class="examples">
+						<div class="simply-countdown-losange" id="simply-countdown-losange"></div>
+						<div class="clear"></div>
+					</div>
+					<!--//timer-->
+				</div>
+				<div class="main-content-right">
+					<!-- newsletter -->
+					<div class="sub-main-w3" id="input">
+						<form id="form">
+							<p>提交一下个人信息</p>
+							<div class="form-style-agile">
+								<input placeholder="电话号码 " id="tTel" name="tTel" type="tel" required="" maxlength="11" />
+								<input placeholder="你的姓名" id="tTel" name="tName" type="text" required="" maxlength="10" />
+								<input type="button" id="sub" value="提交" />
+							</div>
+						</form>
+					</div>
+
+					<!-- //newsletter -->
+				</div>
+				<!-- //content -->
+				<div class="clear"></div>
+			</div>
+			<!-- footer -->
+			<div class="footer">
+				<p>Copyright &copy; 2018.
+				</p>
+			</div>
+			<!-- //footer -->
+		</div>
+
+		<!-- Jquery -->
+		<script src="js/jquery-2.2.3.min.js"></script>
+		<!-- //Jquery -->
+
+		<!-- Countdown-Timer-JavaScript -->
+		<script src="js/simplyCountdown.js"></script>
+		<script>
+			var date ; // 定义全局变量时间
+			var mainurl = "http://127.0.0.1:8080";
+			$("#sub").click(function() {
+				var data = {};
+				var t = $("#form").serializeArray();
+				$.each(t, function() {
+					data[this.name] = this.value;
+				});
+				alert(JSON.stringify(data));
+				var msg = JSON.stringify(data)
+				$.ajax({
+					type: "get",
+					async: true,
+					url: mainurl + "/addTestDome",
+					header: 'Access-Control-Allow-Origin:*',
+					data: data,
+					success: function(data) {
+						alert("抽奖报名成功！");
+					},
+					error: function(data) {
+						alert(data.status);
+					}
+				})
+			});
+
+			$(document).ready(function() {
+				
+				//  页面加载完成 获取截止时间
+				$.ajax({
+					type: "get",
+					async: true,
+					url: mainurl + "/getActivityTime",
+					header: 'Access-Control-Allow-Origin:*',
+					success: function(data) {
+						date = data // 接收这个对象
+						var year = date.data.year;
+						var month = date.data.month;
+						var day = date.data.day;
+						$('#simply-countdown-losange').simplyCountdown({
+							year: year,
+							month: month,
+							day: day,
+						});	
+						
+					},
+					error: function(data) {
+						alert(data.status);
+					}
+				})
+				
+				
+			});
+			s
+		</script>
+
+	</body>
+
+</html>
+
+
+
+
+
+<!-- easy to customize -->
+<!--<script>
+			//			$(document).ready(function() {
+			//				var name = $()
+			//				$.post("test.php", {
+			//						name: "John",
+			//						time: "2pm"
+			//					},
+			//					function(data) {
+			//						alert("Data Loaded: " + data);
+			//					});
+			//			});
+			$("#sub").click(function() {
+						alert("laila");
+						var data = {};
+						var t = $("#form").serializeArray();
+						$.each(t, function() {
+							data[this.name] = this.value;
+						});
+						alert(JSON.stringify(data));
+						$.ajax("index.html", JSON.stringify(data), function(data) {
+							alert(data); // John
+							console.log(data); //  2pm
+						});
+						//						$.ajax({
+						//							type: "get",
+						//							async: true,
+						//							url: "http://www.domain.net/url",
+						//							dataType: "jsonp",
+						//							jsonp: "callbackparam",
+						//							data: JSON.stringify(data),
+						//
+						//							beforeSend: function() {
+						//								alert("来啦");
+						//							},
+						//
+						//							success: function(data) {
+						//								alert("来啦");
+						//							},
+						//
+						//							complete: function() {
+						//								alert("来啦");
+						//							},
+						//
+						//							error: function() {
+						//								//  	alert("来啦");
+						//							}
+						//						});
+						//
+						//						var year = 2018;
+						//						var month = 12;
+						//						var day = 15;
+						//						$('#simply-countdown-losange').simplyCountdown({
+						//							year: year,
+						//							month: month,
+						//							day: day,
+						//						});
+		</script>
+		<!-- //Countdown-Timer-JavaScript -->
