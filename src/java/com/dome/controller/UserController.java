@@ -30,7 +30,7 @@ public class UserController {
         return r;
     }
 
-    @SystemLog()
+    @SystemLog
     @RequestMapping(value="/", method=RequestMethod.POST)
     public String postUser(@ModelAttribute User user) {
         // 处理"/users/"的POST请求，用来创建User

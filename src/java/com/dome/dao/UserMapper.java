@@ -1,4 +1,4 @@
-package com.dome.mapper;
+package com.dome.dao;
 
 import com.dome.pojo.User;
 import org.apache.ibatis.annotations.*;

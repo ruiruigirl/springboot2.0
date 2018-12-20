@@ -2,6 +2,7 @@ package com.dome;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -14,25 +15,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  **/
 
 @Configuration
-public class WebConfig {
+public class WebConfig  {
 
     /**
-     * 配置cors 全局配置
-     * @return
+     * 跨域请求支持
      */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
             @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("**")
-                    .allowedOrigins("**")
-                    .allowedMethods("PUT", "DELETE")
-                    .allowedHeaders("header1", "header2", "header3")
-                    .exposedHeaders("header1", "header2")
-                    .allowCredentials(false).maxAge(3600);
-        }
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*")
+                        .allowedMethods("*").allowedHeaders("*")
+                        .allowCredentials(true)
+                        .exposedHeaders(HttpHeaders.SET_COOKIE).maxAge(3600L);
+            }
         };
     }
-
 }
