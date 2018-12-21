@@ -31,7 +31,6 @@ public class HelloController {
      */
     @RequestMapping("/addTestDome")
     public ServerResponse<String> addTestDome(@Valid Test test) {
-        System.out.println(test.gettTel());
         return testService.addTestDome(test);
     }
     @RequestMapping("/getActivityTime")

@@ -22,9 +22,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public ServerResponse<String> addTestDome(Test test) {
-        System.out.println("laila1");
         int n = testMapper.insert(test);
-        System.out.println(n);
         if (n == 0){
             ServerResponse.createByErrorMessage("失败！");
         }

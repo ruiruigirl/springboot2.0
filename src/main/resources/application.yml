@@ -41,3 +41,6 @@ config:
   year: 2018
   month: 12
   day: 22
+logging:
+  config: classpath:logback-spring.xml
+  path: C:/log
