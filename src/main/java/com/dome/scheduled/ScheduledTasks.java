@@ -45,6 +45,7 @@ public class ScheduledTasks {
         Format format = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
         sb.append("Start time:"+ format.format(date).toString());
         List<Test> tests = testMapper.selectByRand(1);// 当数据量较小的时候容易发生搜索出的结果小于limits
+        tests.get(0).settTel("");
         sb.append("    LuckOne is :" + tests.get(0).toString());
         logger.info(sb.toString());
     }
