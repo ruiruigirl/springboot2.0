@@ -5,6 +5,7 @@ import com.dome.aspect.LogAspect;
 import com.dome.dao.TestMapper;
 import com.dome.pojo.Test;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,9 @@ public class ScheduledTasks {
     @Resource
     private TestMapper testMapper;
 
+    @Resource
+    private RedisTemplate redisTemplate;
+
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled( cron = "0 32 11 21 12 *") // 定时任务 当前系统扩展性稍微差了点 有点懒 如果需要提供系统灵活性可以cron时间配置在yml或者数据库中
@@ -50,4 +54,11 @@ public class ScheduledTasks {
         logger.info(sb.toString());
     }
 
+    /**
+     * 得到redis中所有数据并随机抽取一条数据
+     * redis 版本
+     */
+    private void doRedis(){
+//        redisTemplate
+    }
 }

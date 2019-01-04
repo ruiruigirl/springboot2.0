@@ -6,6 +6,8 @@ import com.dome.pojo.Test;
 import com.dome.service.TestService;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +29,8 @@ public class HelloController {
     private TestService testService;
     @Resource
     private MyProps myProps;
+    @Resource
+    private RedisTemplate redisTemplate;
 
     /**
      * 新增一条抽奖记录
@@ -50,4 +54,21 @@ public class HelloController {
         return ServerResponse.createBySuccess(myProps);
     }
 
+    @RequestMapping("/addTestDomeRedis")
+    public ServerResponse<String> addTestRedis(@Valid Test test) throws InterruptedException {
+        ValueOperations<String , Test> operations = redisTemplate.opsForValue();
+        String uuid = UUID.randomUUID().toString();
+        operations.set( "test", test);
+        Thread.sleep(1000);
+        //redisTemplate.delete("com.neo.f");
+        boolean exists=redisTemplate.hasKey("test");
+        if(exists){
+            System.out.println("exists is true");
+            Test test1 = (Test) redisTemplate.getKeySerializer();
+            System.out.println(test1.gettName());
+        }else{
+            System.out.println("exists is false");
+        }
+        return ServerResponse.createBySuccessMessage("成功!");
+    }
 }
